@@ -22,7 +22,7 @@ const ErrorPage = () => {
                         <p className="py-6">Sorry, we couldn't find the page you're looking for. It might have been removed or moved to a new location.</p>
 
                         {/* Call to Action Button */}
-                        <Link href="/" className="btn btn-primary">Go Home</Link>
+                        <Link to={"/"} className="btn btn-primary">Go Home</Link>
                     </div>
                 </div>
             </div>
