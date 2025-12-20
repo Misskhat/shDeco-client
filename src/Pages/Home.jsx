@@ -1,9 +1,16 @@
 import React from 'react';
+import HeroSwiper from '../Components/HeroSwiper';
+import LoadingSpennier from '../Components/LoadingSpennier';
 
 const Home = () => {
     return (
         <div>
-            <h1>Hi, I'm Home</h1>
+            {/* some image slider for recent project */}
+            <HeroSwiper></HeroSwiper>
+
+            {/* some featured services */}
+
+
         </div>
     );
 };
