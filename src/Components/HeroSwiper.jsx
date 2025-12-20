@@ -1,41 +1,91 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination, Autoplay } from 'swiper/modules';
+
 import slider1 from "../assets/slider1.jpg";
 import slider2 from "../assets/slider2.png";
 import slider3 from "../assets/slider3.png";
 import slider4 from "../assets/slider4.png";
 import slider5 from "../assets/slider5.png";
 import slider6 from "../assets/slider6.png";
-import 'swiper/css';
 
-
-const slider = [slider1, slider2, slider3, slider4, slider5, slider6];
+const slides = [
+    {
+        image: slider1,
+        title: "Elegant Home Decoration",
+        subtitle: "Transform your home with modern style",
+    },
+    {
+        image: slider2,
+        title: "Wedding Ceremony Design",
+        subtitle: "Make your special day unforgettable",
+    },
+    {
+        image: slider3,
+        title: "Office & Event Decoration",
+        subtitle: "Professional designs for corporate events",
+    },
+    {
+        image: slider4,
+        title: "Birthday & Party Setup",
+        subtitle: "Colorful moments, beautiful memories",
+    },
+    {
+        image: slider5,
+        title: "Luxury Interior Styling",
+        subtitle: "Premium decoration services",
+    },
+    {
+        image: slider6,
+        title: "Smart Decoration Solutions",
+        subtitle: "Modern design with smart planning",
+    },
+];
 
 const HeroSwiper = () => {
     return (
-        <div>
-            <Swiper
-                pagination={{
-                    dynamicBullets: true,
-                }}
+        <Swiper
+            pagination={{ dynamicBullets: true }}
+            autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+            }}
+            loop={true}
+            modules={[Pagination, Autoplay]}
+            className="mySwiper"
+        >
+            {slides.map((slide, i) => (
+                <SwiperSlide key={i}>
+                    <div className="relative h-[650px] w-full rounded-xl">
+                        {/* Image */}
+                        <img
+                            src={slide.image}
+                            alt="slider"
+                            className="h-full w-full object-cover"
+                        />
 
-                autoplay={{
-                    delay: 3000,
-                    disableOnInteraction: false,
-                }}
-                loop={true}
+                        {/* Dark Overlay */}
+                        <div className="absolute inset-0 bg-black/50"></div>
 
-                modules={[Pagination, Autoplay]}
-                className="mySwiper"
-            >
-                {slider.map((slide, i) => <SwiperSlide key={i}><div className='object-contain'><img className=' rounded object-fill h-[650px] w-full' src={slide} alt="slider" /></div></SwiperSlide>
-                )}
-
-            </Swiper>
-        </div>
+                        {/* Text Content */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
+                            <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                                {slide.title}
+                            </h1>
+                            <p className="text-lg md:text-xl mb-6 max-w-2xl">
+                                {slide.subtitle}
+                            </p>
+                            <button className="btn btn-primary">
+                                Book Decoration Service
+                            </button>
+                        </div>
+                    </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     );
 };
 
