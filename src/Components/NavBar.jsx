@@ -30,7 +30,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to={"loginPage"} className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105">Login</Link>
+        <Link to={"/loginPage"} className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105">Login</Link>
       </div>
     </div>
   );

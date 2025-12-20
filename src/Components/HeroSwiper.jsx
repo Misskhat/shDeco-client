@@ -59,12 +59,12 @@ const HeroSwiper = () => {
         >
             {slides.map((slide, i) => (
                 <SwiperSlide key={i}>
-                    <div className="relative h-[650px] w-full rounded-xl">
+                    <div className="relative h-[650px] w-full rounded-xl overflow-hidden">
                         {/* Image */}
                         <img
                             src={slide.image}
                             alt="slider"
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-cover rounded-xl overflow-hidden"
                         />
 
                         {/* Dark Overlay */}
@@ -78,7 +78,7 @@ const HeroSwiper = () => {
                             <p className="text-lg md:text-xl mb-6 max-w-2xl">
                                 {slide.subtitle}
                             </p>
-                            <button className="btn btn-primary">
+                            <button className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105">
                                 Book Decoration Service
                             </button>
                         </div>

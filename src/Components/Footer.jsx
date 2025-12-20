@@ -3,8 +3,8 @@ import Logo from './Logo';
 
 const Footer = () => {
     return (
-        <div className='bg-base-200'>
-            <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10 mx-auto w-11/12">
+        <div className=' bg-linear-to-l from-[#FF6B6B] to-[#FFD93D] '>
+            <footer className="footer sm:footer-horizontal bg-linear-to-l from-[#FF6B6B] to-[#FFD93D] text-base-content p-10 mx-auto w-11/12 text-white font-semibold">
                 <aside>
                     <Logo></Logo>
                     <p>
@@ -34,7 +34,7 @@ const Footer = () => {
                     <a className="link link-hover">Cookie policy</a>
                 </nav>
             </footer>
-            <div className="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
+            <div className="footer sm:footer-horizontal footer-center bg-linear-to-l from-[#FF6B6B] to-[#FFD93D] text-base-content p-4 text-white font-semibold">
                 <aside className='w-11/12 mx-auto'>
                     <p>Copyright © {new Date().getFullYear()} - All right reserved by shDeco Ltd.</p>
                 </aside>
