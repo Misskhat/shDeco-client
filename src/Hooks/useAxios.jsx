@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const instance = axios.create({
+const axiosInstance = axios.create({
     baseURL: "http://localhost:3000"
 })
 
 const useAxios = () => {
-    return instance
+    return axiosInstance
 };
 
 export default useAxios;

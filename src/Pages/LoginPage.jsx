@@ -1,16 +1,33 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+import useAuth from '../Hooks/useAuth';
 
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const { user, googleLogIn, logInUser } = useAuth()
+    const location = useLocation()
+    console.log(location);
+    const navigate = useNavigate()
     const handleLoginSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
+        logInUser(data.email, data.password).then(res => {
+            console.log(res)
+            toast.success("Thank you for login  ")
+            navigate(location?.state?.pathname || "/")
+
+        }).catch(error => console.log(error))
     }
 
     const handleGoogleLogin = () => {
-        console.log('google login button clicked')
+        googleLogIn().then((res) => {
+            console.log(res)
+            toast.success('Your are successfully login with your google account')
+            navigate(location?.state?.pathname || "/")
+        })
+            .catch(error => console.log(error))
     }
     return (
         <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
@@ -65,6 +82,7 @@ const LoginPage = () => {
                     >
                         Login
                     </button>
+
                 </form>
 
                 {/* Divider */}

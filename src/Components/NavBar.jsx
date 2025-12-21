@@ -1,14 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Logo from './Logo';
+import useAuth from '../Hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const NavBar = () => {
-
+  const { user, logOutUser } = useAuth()
   const list = <>
     <li><Link to={"/"} className='font-semibold'>Home</Link></li>
     <li><Link to={"servicesPage"} className='font-semibold'>Services Page</Link></li>
     <li><Link to={"mapPage"} className='font-semibold'>Our Location</Link></li>
   </>
+
+  const handleLogOutUser = () => {
+    logOutUser().then(() => toast.success('Successfully LogOut')).catch(error => console.log(error))
+  }
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -30,7 +37,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to={"/loginPage"} className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105">Login</Link>
+        {user ? <button onClick={handleLogOutUser} className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105">Log Out</button> : <Link to={"/loginPage"} className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105">Login</Link>}
       </div>
     </div>
   );

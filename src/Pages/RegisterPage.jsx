@@ -1,21 +1,39 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import useAuth from '../Hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
+    const location = useLocation()
+    console.log(location)
+    const navigate = useNavigate()
+    // console.log(navigate)
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm();
+    const { signUpUser, googleLogIn } = useAuth()
 
     const handleRegisterSubmit = (data) => {
         console.log(data);
-        // Later:
-        // 1. Upload image
-        // 2. Firebase create user
-        // 3. Save user to database
+        signUpUser(data.email, data.password).then(res => {
+            console.log(res)
+            toast.success("Thank you for signup")
+            navigate(location?.state?.pathname || "/")
+
+        }).catch(error => console.log(error))
     };
+
+    const handleGoogleLogIn = () => {
+        googleLogIn().then(res => {
+            console.log(res)
+            toast.success('Your are successfully login with your google account')
+            navigate(location?.state?.pathname || "/")
+        })
+            .catch(error => console.log(error))
+    }
     return (
         <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
@@ -109,19 +127,18 @@ const RegisterPage = () => {
                     {/* Register Button */}
                     <button
                         type="submit"
-                        className="w-full px-8 py-2 font-bold text-white rounded bg-[#FF6B6B]
-            hover:bg-gradient-to-r hover:from-[#FF6B6B] hover:to-[#FFD93D]
-            transition-all duration-500 ease-in-out hover:scale-105"
+                        className="w-full px-8 py-2 font-bold text-white rounded bg-[#FF6B6B] hover:bg-linear-to-r hover:from-[#FF6B6B] hover:to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105"
                     >
                         Register
                     </button>
+
                 </form>
 
                 {/* Divider */}
                 <div className="divider my-6">OR</div>
 
                 {/* Google Signup */}
-                <button className="btn btn-outline w-full mb-3">
+                <button onClick={handleGoogleLogIn} className="btn btn-outline w-full mb-3">
                     Continue with Google
                 </button>
 

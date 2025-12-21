@@ -7,6 +7,7 @@ import ServiceDetailsPage from "../Pages/ServiceDetailsPage";
 import MapPage from "../Pages/MapPage";
 import ErrorPage from "../Pages/ErrorPage";
 import RegisterPage from "../Pages/RegisterPage";
+import PrivateRouter from "./PrivateRouter";
 
 export const router = createBrowserRouter([
     {
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'services/details/:id',
-                element: <ServiceDetailsPage></ServiceDetailsPage>
+                element: <PrivateRouter><ServiceDetailsPage></ServiceDetailsPage></PrivateRouter>
             },
             {
                 path: "mapPage",
