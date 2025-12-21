@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import { toast } from 'react-toastify';
+import useAxios from '../Hooks/useAxios';
 
 const RegisterPage = () => {
     const location = useLocation()
-    console.log(location)
+    // console.log(location)
     const navigate = useNavigate()
+    const axios = useAxios()
     // console.log(navigate)
     const {
         register,
@@ -17,20 +19,36 @@ const RegisterPage = () => {
     const { signUpUser, googleLogIn } = useAuth()
 
     const handleRegisterSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
         signUpUser(data.email, data.password).then(res => {
-            console.log(res)
-            toast.success("Thank you for signup")
-            navigate(location?.state?.pathname || "/")
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                photoURL: data.image || ""
+            }
+            axios.post('/users', userInfo).then((res) => {
+
+                // console.log(res.data)
+                toast.success("Thank you for signup")
+                navigate(location?.state?.pathname || "/")
+            })
 
         }).catch(error => console.log(error))
     };
 
     const handleGoogleLogIn = () => {
         googleLogIn().then(res => {
-            console.log(res)
-            toast.success('Your are successfully login with your google account')
-            navigate(location?.state?.pathname || "/")
+            const user = res.user;
+            const userInfo = {
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL || ""
+            }
+            axios.post('/users', userInfo).then(() => {
+                // console.log(res)
+                toast.success('Your are successfully login with your google account')
+                navigate(location?.state?.pathname || "/")
+            })
         })
             .catch(error => console.log(error))
     }
@@ -59,11 +77,11 @@ const RegisterPage = () => {
                             type="text"
                             placeholder="John Doe"
                             className="input input-bordered w-full"
-                            {...register("name", { required: "Name is required" })}
+                            {...register("name", { required: true })}
                         />
-                        {errors.name && (
+                        {errors.name?.type === "required" && (
                             <p className="text-red-500 text-sm mt-1">
-                                {errors.name.message}
+                                Please input your name
                             </p>
                         )}
                     </div>
@@ -77,11 +95,11 @@ const RegisterPage = () => {
                             type="email"
                             placeholder="example@email.com"
                             className="input input-bordered w-full"
-                            {...register("email", { required: "Email is required" })}
+                            {...register("email", { required: true })}
                         />
-                        {errors.email && (
+                        {errors.email?.type === "required" && (
                             <p className="text-red-500 text-sm mt-1">
-                                {errors.email.message}
+                                Please provide a valid email address.
                             </p>
                         )}
                     </div>
@@ -96,16 +114,15 @@ const RegisterPage = () => {
                             placeholder="••••••••"
                             className="input input-bordered w-full"
                             {...register("password", {
-                                required: "Password is required",
+                                required: true,
                                 minLength: {
                                     value: 6,
-                                    message: "Password must be at least 6 characters"
                                 }
                             })}
                         />
-                        {errors.password && (
+                        {errors.password?.type === "minLength" && (
                             <p className="text-red-500 text-sm mt-1">
-                                {errors.password.message}
+                                Password must be at least 6 characters
                             </p>
                         )}
                     </div>

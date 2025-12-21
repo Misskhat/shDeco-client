@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import useAuth from '../Hooks/useAuth';
+import useAxios from '../Hooks/useAxios';
 
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { user, googleLogIn, logInUser } = useAuth()
+    const { googleLogIn, logInUser } = useAuth()
     const location = useLocation()
+    const axios = useAxios()
     console.log(location);
     const navigate = useNavigate()
     const handleLoginSubmit = (data) => {
@@ -21,11 +23,19 @@ const LoginPage = () => {
         }).catch(error => console.log(error))
     }
 
-    const handleGoogleLogin = () => {
-        googleLogIn().then((res) => {
-            console.log(res)
-            toast.success('Your are successfully login with your google account')
-            navigate(location?.state?.pathname || "/")
+    const handleGoogleLogIn = () => {
+        googleLogIn().then(res => {
+            const user = res.user;
+            const userInfo = {
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL || ""
+            }
+            axios.post('/users', userInfo).then((res) => {
+                console.log(res)
+                toast.success('Your are successfully login with your google account')
+                navigate(location?.state?.pathname || "/")
+            })
         })
             .catch(error => console.log(error))
     }
@@ -89,7 +99,7 @@ const LoginPage = () => {
                 <div className="divider my-6">OR</div>
 
                 {/* Social Login */}
-                <button onClick={handleGoogleLogin} className="btn btn-outline w-full mb-3">
+                <button onClick={handleGoogleLogIn} className="btn btn-outline w-full mb-3">
                     Continue with Google
                 </button>
 
