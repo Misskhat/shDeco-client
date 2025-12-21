@@ -38,7 +38,7 @@ const LoginPage = () => {
                             className="input input-bordered w-full"
 
                         />
-                        {errors.email?.type === "required" && <span className='text-red-500 font-semibold'>Email ID required</span>}
+                        {errors.email?.type === "required" && <span className='text-red-500 text-sm mt-1'>Email ID required</span>}
                     </div>
 
                     <div>
@@ -46,13 +46,14 @@ const LoginPage = () => {
                             <span className="label-text font-medium">Password</span>
                         </label>
                         <input
-                            {...register('password', { required: true })}
+                            {...register('password', { required: true, minLength: 6 })}
                             type="password"
                             placeholder="••••••••"
                             className="input input-bordered w-full"
 
                         />
-                        {errors.password?.type === "required" && <span className='text-red-500 font-semibold'>Password required</span>}
+                        {errors.password?.type === "required" && <span className='text-red-500 text-sm mt-1'>Password required</span>}
+                        {errors.password?.type === "minLength" && <span className='text-red-500 text-sm mt-1'>Password must be 6 characters</span>}
                     </div>
 
                     {/* Login Button */}
@@ -77,7 +78,7 @@ const LoginPage = () => {
                 {/* Register */}
                 <p className="text-center text-sm mt-4">
                     Don’t have an account?{" "}
-                    <Link to="/register" className="text-[#FF6B6B] font-semibold">
+                    <Link to="/registerPage" className="text-[#FF6B6B] font-semibold">
                         Register
                     </Link>
                 </p>

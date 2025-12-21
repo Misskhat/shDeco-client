@@ -6,6 +6,7 @@ import ServicesPage from "../Pages/ServicesPage";
 import ServiceDetailsPage from "../Pages/ServiceDetailsPage";
 import MapPage from "../Pages/MapPage";
 import ErrorPage from "../Pages/ErrorPage";
+import RegisterPage from "../Pages/RegisterPage";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
             {
                 path: 'loginPage',
                 element: <LoginPage></LoginPage>
+            },
+            {
+                path: 'registerPage',
+                element: <RegisterPage></RegisterPage>
             },
             {
                 path: 'servicesPage',
