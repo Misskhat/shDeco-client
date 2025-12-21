@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Star, Clock, MapPin, CheckCircle, ArrowRight } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import useAxios from '../Hooks/useAxios';
 import LoadingSpennier from '../Components/LoadingSpennier';
 
@@ -24,37 +24,6 @@ const ServiceDetailsPage = () => {
             .catch(error => console.log(error))
     }, [axios, id, loading])
 
-
-
-    // const service = {
-    //     _id: "6946e1b59aa49ac90979ce3a",
-    //     title: "Exterior Design",
-    //     subtitle: "Beautiful first impressions",
-    //     category: "exterior",
-    //     price: 38000,
-    //     priceUnit: "per project",
-    //     rating: 4.7,
-    //     reviews: 105,
-    //     coverImage: "https://i.ibb.co.com/WWTPHScH/exterior-Design.jpg",
-    //     shortDescription: "Modern exterior design for buildings.",
-    //     longDescription: "Our exterior design service enhances the outer appearance of buildings using modern materials, lighting, and landscaping concepts.",
-    //     features: [
-    //         "Facade design",
-    //         "Outdoor lighting",
-    //         "Material selection",
-    //         "Landscape integration"
-    //     ],
-    //     duration: "4–6 days",
-    //     serviceMode: ["On-site"],
-    //     coverageArea: "Urban & Suburban Areas",
-    //     available: true
-    // };
-
-    const handleBooking = () => {
-        // navigate(`/booking/${service._id}`);
-        console.log('button clicked')
-    }
-
     return (
         <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
@@ -65,7 +34,7 @@ const ServiceDetailsPage = () => {
                         alt={service.title}
                         className="w-full h-96 sm:h-[500px] object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 p-8 text-white">
                         <h1 className="text-4xl sm:text-5xl font-bold mb-2">{service.title}</h1>
                         <p className="text-xl sm:text-2xl opacity-90">{service.subtitle}</p>
@@ -153,16 +122,8 @@ const ServiceDetailsPage = () => {
                             </div>
 
                             {/* Booking Button */}
-                            <button
-                                onClick={handleBooking}
-                                disabled={!service.available}
-                                className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all flex items-center justify-center gap-3 ${service.available
-                                    ? "px - 8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105"
-                                    : 'bg-gray-400 text-gray-700 cursor-not-allowed'
-                                    }`}
-                            >
-                                {service.available ? 'Book This Service' : 'Currently Unavailable'}
-                                {service.available && <ArrowRight className="w-5 h-5" />}
+                            <button className='w-full px-6 text-white font-bold py-4 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105'>
+                                <Link to={`/bookingPage/${service?._id}`}>Book This Service</Link>
                             </button>
 
                             {!service.available && (

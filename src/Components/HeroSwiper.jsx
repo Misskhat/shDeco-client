@@ -11,6 +11,7 @@ import slider3 from "../assets/slider3.png";
 import slider4 from "../assets/slider4.png";
 import slider5 from "../assets/slider5.png";
 import slider6 from "../assets/slider6.png";
+import { Link } from 'react-router';
 
 const slides = [
     {
@@ -79,7 +80,7 @@ const HeroSwiper = () => {
                                 {slide.subtitle}
                             </p>
                             <button className="px-8 text-white font-bold py-4 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105">
-                                Book Decoration Service
+                                <Link to={'/servicesPage'}>See All Our Services & Book Your Convenient Time</Link>
                             </button>
                         </div>
                     </div>

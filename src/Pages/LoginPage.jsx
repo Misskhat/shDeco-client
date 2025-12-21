@@ -11,12 +11,12 @@ const LoginPage = () => {
     const { googleLogIn, logInUser } = useAuth()
     const location = useLocation()
     const axios = useAxios()
-    console.log(location);
+    // console.log(location);
     const navigate = useNavigate()
     const handleLoginSubmit = (data) => {
         // console.log(data)
-        logInUser(data.email, data.password).then(res => {
-            console.log(res)
+        logInUser(data.email, data.password).then(() => {
+            // console.log(res)
             toast.success("Thank you for login  ")
             navigate(location?.state?.pathname || "/")
 
@@ -31,8 +31,8 @@ const LoginPage = () => {
                 email: user.email,
                 photoURL: user.photoURL || ""
             }
-            axios.post('/users', userInfo).then((res) => {
-                console.log(res)
+            axios.post('/users', userInfo).then(() => {
+                // console.log(res)
                 toast.success('Your are successfully login with your google account')
                 navigate(location?.state?.pathname || "/")
             })

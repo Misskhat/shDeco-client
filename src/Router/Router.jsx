@@ -8,6 +8,7 @@ import MapPage from "../Pages/MapPage";
 import ErrorPage from "../Pages/ErrorPage";
 import RegisterPage from "../Pages/RegisterPage";
 import PrivateRouter from "./PrivateRouter";
+import BookingPage from "../Pages/BookingPage";
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
             {
                 path: 'services/details/:id',
                 element: <PrivateRouter><ServiceDetailsPage></ServiceDetailsPage></PrivateRouter>
+            },
+            {
+                path: "bookingPage/:id",
+                element: <PrivateRouter><BookingPage></BookingPage></PrivateRouter>
             },
             {
                 path: "mapPage",
