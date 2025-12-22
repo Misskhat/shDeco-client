@@ -19,11 +19,28 @@ const DashBoardLayouts = () => {
             .catch(() => toast.error('Logout failed'));
     };
 
-    const menuItems = [
-        { name: 'Home', path: '/' },
-        { name: 'My Bookings', path: '/dashboard/bookings' },
-        { name: 'Payment History', path: '/dashboard/payments' },
-    ];
+    const menuConfig = {
+        user: [
+            { name: 'Home', path: '/' },
+            { name: 'My Bookings', path: '/dashboard/bookings' },
+            { name: 'Payment History', path: '/dashboard/payments' },
+        ],
+        admin: [
+            { name: 'Home', path: '/' },
+            { name: 'Manage Bookings', path: '/dashboard/admin/bookings' },
+            { name: 'Manage Services', path: '/dashboard/admin/services' },
+            { name: 'Manage Users', path: '/dashboard/admin/users' },
+        ],
+        decorator: [
+            { name: 'Home', path: '/' },
+            { name: 'My Projects', path: '/dashboard/decorator/projects' },
+            { name: 'Update Status', path: '/dashboard/decorator/status' },
+        ]
+    };
+
+    const role = user?.role || 'user';
+    const menuItems = menuConfig[role];
+
     return (
         <div className="drawer lg:drawer-open min-h-screen bg-base-200">
             <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
@@ -64,6 +81,9 @@ const DashBoardLayouts = () => {
                         </div>
                         <h2 className="mt-4 text-2xl font-bold">{user?.displayName || 'User'}</h2>
                         <p className="text-gray-600">{user?.email}</p>
+                        <span className="badge badge-outline mt-2">
+                            {role.toUpperCase()}
+                        </span>
                     </div>
 
                     {/* Menu */}
@@ -72,7 +92,10 @@ const DashBoardLayouts = () => {
                             <li key={item.path}>
                                 <Link
                                     to={item.path}
-                                    className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105"
+                                    className="px-8 text-white font-bold py-2 rounded
+                bg-[#FF6B6B]
+                hover:bg-gradient-to-r hover:from-[#FF6B6B] hover:to-[#FFD93D]
+                transition-all duration-500 ease-in-out hover:scale-105"
                                 >
                                     {item.name}
                                 </Link>
