@@ -11,11 +11,12 @@ import PrivateRouter from "./PrivateRouter";
 import BookingPage from "../Pages/BookingPage";
 import DashBoardLayouts from "../Layouts/DashBoardLayouts/DashBoardLayouts";
 import Bookings from "../Pages/Bookings";
-import Payment from "../Pages/Payment";
+import Payments from "../Pages/Payments";
 import AdminRoute from "./AdminRoute";
 import DecoratorRoute from "./DecoratorRoute";
 import AdminBookings from "../Pages/AdminBooking";
 import DecoratorProjects from "../Pages/DecoratorProjects";
+import DashboardHome from "../Pages/DashboardHome";
 
 export const router = createBrowserRouter([
     {
@@ -62,11 +63,21 @@ export const router = createBrowserRouter([
         ),
         children: [
             {
-                index: "/dashboard/bookings",
-                element: <Bookings />
+                index: true,
+                element: <DashboardHome />
             },
 
-            // Admin
+            // USER
+            {
+                path: "bookings",
+                element: <Bookings />
+            },
+            {
+                path: "payments",
+                element: <Payments />
+            },
+
+            // ADMIN
             {
                 path: "admin/bookings",
                 element: (
@@ -76,7 +87,7 @@ export const router = createBrowserRouter([
                 )
             },
 
-            // Decorator
+            // DECORATOR
             {
                 path: "decorator/projects",
                 element: (
