@@ -1,16 +1,94 @@
-# React + Vite
+# 🏡 shDeco – Service Booking & Payment Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+shDeco is a **full-stack service booking web application** where users can browse services, place bookings, and securely complete payments using **Stripe Checkout**. The platform includes user authentication, booking management, admin controls, and real-time payment tracking.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Features
 
-## React Compiler
+### 👤 User Features
+- User registration & login
+- Browse available services
+- View service details
+- Book a service
+- View personal booking dashboard
+- Pay securely using Stripe Checkout
+- Track payment status & tracking ID
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🧑‍💼 Admin Features
+- View all bookings
+- Update booking status (pending / approved / cancelled)
+- Monitor payment records
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+### Frontend
+- **React**
+- **React Router**
+- **React Query (TanStack Query)**
+- **Axios**
+- **Tailwind CSS**
+- **DaisyUI**
+
+### Backend
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **Stripe Payment Gateway**
+- **JWT (optional for route protection)**
+
+---
+
+## 💳 Payment System (Stripe)
+
+- Stripe **Checkout Session** is used (no custom card UI required)
+- Secure redirect-based payment flow
+- Payment success & cancel handling
+- Payment data saved in MongoDB
+- Unique **Tracking ID** generated after successful payment
+
+---
+
+## 🔄 Payment Flow
+
+1. User books a service
+2. User clicks **Pay Now** from dashboard
+3. Redirects to payment page
+4. Stripe Checkout opens
+5. On success:
+   - Payment info saved
+   - Booking marked as `paid`
+   - Tracking ID generated
+6. User redirected to success page
+
+---
+
+## 📦 API Overview
+
+### Bookings
+- `POST /bookings` → Create booking
+- `GET /bookings?email=` → User bookings
+- `GET /bookings/:id` → Single booking
+- `GET /admin/bookings` → Admin bookings
+- `PATCH /admin/bookings/:id` → Update status
+
+### Payments
+- `POST /create-checkout-session` → Stripe checkout
+- `POST /webhook` → Stripe webhook
+- `POST /payments` → Save payment data
+
+### Services
+- `GET /services`
+- `GET /services/featured`
+- `GET /services/details/:id`
+
+### Users
+- `POST /users`
+
+---
+
+## 🧪 Stripe Test Mode
+
+Use Stripe test cards:
