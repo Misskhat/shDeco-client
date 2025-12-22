@@ -10,6 +10,9 @@ const NavBar = () => {
     <li><Link to={"/"} className='font-semibold'>Home</Link></li>
     <li><Link to={"servicesPage"} className='font-semibold'>Services Page</Link></li>
     <li><Link to={"mapPage"} className='font-semibold'>Our Location</Link></li>
+    {
+      user && <li><Link to={"dashboard"} className='font-semibold'>DashBoard</Link></li>
+    }
   </>
 
   const handleLogOutUser = () => {

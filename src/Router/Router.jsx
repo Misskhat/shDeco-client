@@ -9,6 +9,9 @@ import ErrorPage from "../Pages/ErrorPage";
 import RegisterPage from "../Pages/RegisterPage";
 import PrivateRouter from "./PrivateRouter";
 import BookingPage from "../Pages/BookingPage";
+import DashBoardLayouts from "../Layouts/DashBoardLayouts/DashBoardLayouts";
+import Bookings from "../Pages/Bookings";
+import Payment from "../Pages/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +46,20 @@ export const router = createBrowserRouter([
             {
                 path: "mapPage",
                 element: <MapPage></MapPage>
+            }
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRouter><DashBoardLayouts></DashBoardLayouts></PrivateRouter>,
+        children: [
+            {
+                index: true,
+                element: <Bookings></Bookings>
+            },
+            {
+                path: 'payments',
+                element: <Payment></Payment>
             }
         ]
     },
