@@ -11,12 +11,12 @@ import PrivateRouter from "./PrivateRouter";
 import BookingPage from "../Pages/BookingPage";
 import DashBoardLayouts from "../Layouts/DashBoardLayouts/DashBoardLayouts";
 import Bookings from "../Pages/Bookings";
-import Payments from "../Pages/Payments";
 import AdminRoute from "./AdminRoute";
 import DecoratorRoute from "./DecoratorRoute";
 import AdminBookings from "../Pages/AdminBooking";
 import DecoratorProjects from "../Pages/DecoratorProjects";
 import DashboardHome from "../Pages/DashboardHome";
+import PaymentPage from "../Pages/PaymentPage";
 
 export const router = createBrowserRouter([
     {
@@ -73,8 +73,8 @@ export const router = createBrowserRouter([
                 element: <Bookings />
             },
             {
-                path: "payments",
-                element: <Payments />
+                path: "payments/:bookingId",
+                element: <PaymentPage></PaymentPage>
             },
 
             // ADMIN

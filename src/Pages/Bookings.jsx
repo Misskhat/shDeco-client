@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import useAxios from '../Hooks/useAxios';
-import useAuth from '../Hooks/useAuth';
+import React, { useEffect, useState } from "react";
+import useAxios from "../Hooks/useAxios";
+import useAuth from "../Hooks/useAuth";
+import { useNavigate } from "react-router";
+import LoadingSpennier from "../Components/LoadingSpennier";
 
 const Bookings = () => {
     const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { user } = useAuth();
     const axios = useAxios();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (user?.email) {
-            axios
-                .get(`/bookings?email=${user.email}`)
-                .then(res => setServices(res.data));
-        }
-    }, [axios, user]);
+        if (!user?.email) return;
+        setLoading(true);
+
+        axios
+            .get(`/bookings?email=${user.email}`)
+            .then((res) => setServices(res.data))
+            .finally(() => setLoading(false));
+    }, [axios, user?.email]);
+
+    if (loading) return <LoadingSpennier />;
 
     return (
         <div className="p-6">
@@ -23,7 +31,6 @@ const Bookings = () => {
 
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
-                    {/* Table Head */}
                     <thead>
                         <tr>
                             <th>#</th>
@@ -36,45 +43,38 @@ const Bookings = () => {
                         </tr>
                     </thead>
 
-                    {/* Table Body */}
                     <tbody>
-                        {services.map((booking, index) => (
-                            <tr key={booking._id}>
+                        {services.map((b, index) => (
+                            <tr key={b._id}>
                                 <th>{index + 1}</th>
-
                                 <td>
-                                    <div>
-                                        <p className="font-semibold">
-                                            {booking.serviceTitle}
-                                        </p>
-                                        <p className="text-sm text-gray-500">
-                                            {booking.serviceCategory}
-                                        </p>
-                                    </div>
+                                    <p className="font-semibold">{b.serviceTitle}</p>
+                                    <p className="text-sm text-gray-500">{b.serviceCategory}</p>
                                 </td>
-
-                                <td>{booking.bookingDate}</td>
-
-                                <td>{booking.serviceLocation}</td>
-
-                                <td className="font-bold">
-                                    ৳{booking.servicePrice}
-                                </td>
-
+                                <td>{new Date(b.bookingDate).toLocaleDateString()}</td>
+                                <td>{b.serviceLocation}</td>
+                                <td className="font-bold">৳{b.servicePrice}</td>
                                 <td>
-                                    <span className="badge badge-outline">
-                                        {booking.status}
+                                    <span
+                                        className={`badge ${b.status === "approved"
+                                            ? "badge-success"
+                                            : b.status === "cancelled"
+                                                ? "badge-error"
+                                                : "badge-warning"
+                                            }`}
+                                    >
+                                        {b.status}
                                     </span>
                                 </td>
-
                                 <td>
-                                    {booking.paymentStatus === "paid" ? (
-                                        <span className="badge badge-success">
-                                            Paid
-                                        </span>
+                                    {b.paymentStatus === "paid" ? (
+                                        <span className="badge badge-success">Paid</span>
                                     ) : (
                                         <button
-                                            className="px-8 text-white font-bold py-2 rounded bg-[#FF6B6B] hover:bg-linear-to-r from-[#FF6B6B] to-[#FFD93D] transition-all duration-500 ease-in-out hover:scale-105"
+                                            onClick={() =>
+                                                navigate(`/dashboard/payment/${b._id}`)
+                                            }
+                                            className="btn bg-[#FF6B6B] text-white font-bold"
                                         >
                                             Pay Now
                                         </button>
@@ -85,7 +85,6 @@ const Bookings = () => {
                     </tbody>
                 </table>
 
-                {/* Empty State */}
                 {services.length === 0 && (
                     <p className="text-center text-gray-500 mt-6">
                         No bookings found
