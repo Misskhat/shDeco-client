@@ -31,7 +31,7 @@ const BookingPage = () => {
 
         const bookingData = {
             userName: user?.displayName || user?.name || "User",
-            userEmail: user?.email,
+            email: user?.email,
 
             serviceId: service._id,
             serviceTitle: service.title,

@@ -22,7 +22,7 @@ const DashBoardLayouts = () => {
     const menuConfig = {
         user: [
             { name: 'Home', path: '/' },
-            { name: 'My Bookings', path: '/dashboard/bookings' },
+            { name: 'My Bookings', path: '/dashboard' },
             { name: 'Payment History', path: '/dashboard/payments' },
         ],
         admin: [

@@ -26,7 +26,7 @@ const RegisterPage = () => {
                 email: data.email,
                 photoURL: data.image || ""
             }
-            axios.post('/users', userInfo).then((res) => {
+            axios.post('/users', userInfo).then(() => {
 
                 // console.log(res.data)
                 toast.success("Thank you for signup")
